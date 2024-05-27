@@ -1,117 +1,76 @@
 <!DOCTYPE html>
-<html lang="es">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi Página Web</title>
-    <style>
-        /* Estilos para el menú */
-	BODY{
-		BACKGROUND-COLOR:POWDERBLUE;
-			}
-        ul {
-            list-style-type: none;
-            margin: 10;
-            padding: 10;
-            background-color: #f1f1f1;
-        }
-        li {
-            display: inline;
-            margin-right: 50px;
-        }
-        a {
-            text-decoration: none;
-            color: #333;
-        }
-    </style>
+    <title>Cafetería</title>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
-    <center><ul>
-        <li><a href="#inicio">Inicio</a></li>
-        <li><a href="#sobre-nosotros">Sobre nosotros</a></li>
-        <li><a href="#contacto">Contacto</a></li>
-	<li><a href="#Algomás?">Algo más?</a></li>
-    </ul></center>
-
-    <div id="inicio">
-        <!-- Contenido de la sección "Inicio" -->
-        <center><h1 style="color:GREY">Bienvenidos a nuestra página web</h1></center>
-        <p>Lo que vemos a continunación es una imagen:</p>
-	<CENTER><IMG SRC="https://scontent.fsrz1-1.fna.fbcdn.net/v/t39.30808-6/439562235_799818042208637_5511042209129293987_n.jpg?_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_ohc=Cr-KOC7nNKwQ7kNvgEDw8ve&_nc_ht=scontent.fsrz1-1.fna&oh=00_AYDOwYEmTIp57Bx9iIfv8zyEYOgOVpl32lvhTES5FL5OPg&oe=664C72D7" WIDTH="1000"></CENTER>
+  <header>
+    <div class="logo-container">
+        <img src="https://drive.google.com/file/d/1bFP6CBZr8O_KVSXoujgAp2mQTD94grxP/view?usp=drive_link/A.png" alt="Logo de la cafetería">
+        <h1>Cafetería deliciosamente suya</h1>
     </div>
+    <nav>
+        <ul>
+            <li><a href="#inicio">Inicio</a></li>
+            <li><a href="#menu">Menú</a></li>
+            <li><a href="#ubicacion">Ubicación</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+        </ul>
+    </nav>
+</header>
 
-    <div id="sobre-nosotros">
-        <!-- Contenido de la sección "Sobre nosotros" -->
-	    
-	<!-- video insertado desde youtobe. 
-	Pasos: compartir video -> opcion insertar<> -> copiar el link ->copialo en tu html  -->
-	<CENTER>	    
-		<iframe width="560" height="315" src="https://www.youtube.com/embed/FVGKdTzsJ0w?si=Zfnpoa-F8osHIHgk" title="YouTube video player" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share" referrerpolicy="strict-origin-when-cross-origin" allowfullscreen></iframe>	    
-	</CENTER>
-	
-	<CENTER><VIDEO controls>
-        <source src="VIDEO.mp4" type="VIDEO/mp4">
-        Tu navegador no soporta el elemento de audio.
-    </VIDEO><CENTER>
-        <h2>Diseño Web I</h2>
-        <p>En la primera semana de clases aprendimos a crear la estructura
-	y las bases para nuestra primera pagina web; como podemos ver aprendimos a colocar imágenes</p>
-    </div>
 
-    <div id="contacto">
-        <!-- Contenido de la sección "Contacto" -->
+
+    
+    <section id="inicio">
+        <h2>Bienvenido a nuestra cafetería</h2>
+        <p>¡Disfruta de nuestras deliciosas bebidas y aperitivos!</p>
+        <a href="#menu">Ver nuestro menú</a>
+    </section>
+    
+    <section id="menu">
+        <h2>Nuestro Menú</h2>
+        <div class="item">
+            <img src="cafe.jpg" alt="Café">
+            <h3>Café</h3>
+            <p>Descripción del café.</p>
+            <p>Precio: $X.XX</p>
+        </div>
+        <div class="item">
+            <img src="te.jpg" alt="Té">
+            <h3>Té</h3>
+            <p>Descripción del té.</p>
+            <p>Precio: $X.XX</p>
+        </div>
+        <!-- Agregar más elementos según el menú -->
+    </section>
+    
+    <section id="ubicacion">
+        <h2>Ubicación</h2>
+        <p>Encuéntranos en:</p>
+        <p>Dirección de la cafetería</p>
+        <p>Teléfono: xxx-xxx-xxxx</p>
+    </section>
+    
+    <section id="contacto">
         <h2>Contacto</h2>
-        <p>Puedes escribirnos a <a href="mailto:allymorgenster77@gmail.com">allymorgenster77@gmail.com</a></p>
-    </div>
-	 <div id="Algomás?">
-        <!-- Contenido de la sección "Sobre nosotros" -->
-        <h2>Eso es todo :D</h2>
-        <p>Esta ha sido la  actividad de hoy</p>
-    </div>
-<CENTER>
+        <p>Ponte en contacto con nosotros:</p>
+        <form>
+            <label for="nombre">Nombre:</label>
+            <input type="text" id="nombre" name="nombre" required>
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            <label for="mensaje">Mensaje:</label>
+            <textarea id="mensaje" name="mensaje" required></textarea>
+            <button type="submit">Enviar</button>
+        </form>
+    </section>
 
-
-
-</CENTER>
-<style>
-    table {
-        table-layout: fixed;
-        width: 250px;
-    }
-    th, td {
-        border: 1px solid blue;
-        width: 100px;
-        overflow-wrap: break-word;
-    }
-</style>
-<center>
-<table border="2"  bgcolor=silver>
-
-    <tr>
-       
-        <th bgcolor="white">Materia</th>
-        <th bgcolor="white">sigla</th>
-        <th bgcolor="white">Alumno</th>
-        <th bgcolor="white">tema</th>
-        
-    </tr>
-    <tr>
-       
-        <td>Diseño web I</td>
-        <td>SIS-0140</td>
-        <td>Adriana Rodríguez Sotelo</td>
-        <td>Tablas y celdas</td>
-        
-    </tr>
- <tr>
-       
-        <td>Diseño web I</td>
-        <td>MAT-0210</td>
-        <td>Adriana Rodríguez Sotelo</td>
-        <td>Tablas y celdas</td>
-        
-    </tr>
-</table>
-</center>
+    <footer>
+        <p>&copy; 2024 Cafetería deliciosamente suya</p>
+    </footer>
 </body>
 </html>
