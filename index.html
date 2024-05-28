@@ -1,81 +1,136 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
+<html>
+  <head>
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Cafetería</title>
-    <link rel="stylesheet" href="styles.css">
-</head>
-<body>
-  <header>
-    <div class="logo-container">
-        <img src="./A.png" alt="Logo de la cafetería" />
-        <h1>Cafetería deliciosamente suya</h1><br>
+    <script type="importmap">
+    {
+      "imports": {
+				"three": "https://unpkg.com/three@0.160.0/build/three.module.js",
+				"three/addons/": "https://unpkg.com/three@0.160.0/examples/jsm/",
+				"mindar-face-three":"https://cdn.jsdelivr.net/npm/mind-ar@1.2.4/dist/mindar-face-three.prod.js"
+      }
+    }
+    </script>
+    <script type="module">
+      import * as THREE from 'three';
+      import { GLTFLoader } from 'three/addons/loaders/GLTFLoader.js';
+      import { MindARThree } from 'mindar-face-three';
+
+      class Avatar {
+        constructor() {
+          this.gltf = null;
+          this.morphTargetMeshes = [];
+        }
+        async init() {
+          const url = "https://assets.codepen.io/9177687/raccoon_head.glb";
+          const gltf = await new Promise((resolve) => {
+            const loader = new GLTFLoader();
+            loader.load(url, (gltf) => {
+              resolve(gltf);
+            });
+          });
+
+          gltf.scene.traverse((object) => {
+            if ((object).isBone && !this.root) {
+              this.root = object; // as THREE.Bone;
+            }
+            if (!(object).isMesh) return
+            const mesh = object;
+            if (!mesh.morphTargetDictionary || !mesh.morphTargetInfluences) return
+            this.morphTargetMeshes.push(mesh);
+          });
+          this.gltf = gltf;
+        }
+
+        updateBlendshapes(blendshapes) {
+          const categories = blendshapes.categories;
+          let coefsMap = new Map();
+          for (let i = 0; i < categories.length; ++i) {
+            coefsMap.set(categories[i].categoryName, categories[i].score);
+          }
+
+          for (const mesh of this.morphTargetMeshes) {
+            if (!mesh.morphTargetDictionary || !mesh.morphTargetInfluences) {
+              continue;
+            }
+            for (const [name, value] of coefsMap) {
+              if (!Object.keys(mesh.morphTargetDictionary).includes(name)) {
+                continue;
+              }
+              const idx = mesh.morphTargetDictionary[name];
+              mesh.morphTargetInfluences[idx] = value;
+            }
+          }
+        }
+      }
+
+      let mindarThree = null;
+      let avatar = null;
+
+      const setup = async () => {
+        mindarThree = new MindARThree({
+          container: document.querySelector("#container"),
+        });
+
+        const { renderer, scene, camera } = mindarThree;
+
+        const light = new THREE.HemisphereLight(0xffffff, 0xbbbbff, 1);
+        scene.add(light);
+
+        const anchor = mindarThree.addAnchor(1);
+
+        avatar = new Avatar();
+        await avatar.init();
+        avatar.gltf.scene.scale.set(2, 2, 2);
+        anchor.group.add(avatar.gltf.scene);
+      }
+
+      const start = async () => {
+        if (!mindarThree) {
+          await setup();
+        }
+
+        await mindarThree.start();
+        const { renderer, scene, camera } = mindarThree;
+
+        const feedVideo = document.querySelector("#video-feed");
+        feedVideo.srcObject = mindarThree.video.srcObject.clone();
+        feedVideo.play();
+
+        renderer.setAnimationLoop(() => {
+          const estimate = mindarThree.getLatestEstimate();
+          if (estimate && estimate.blendshapes) {
+            avatar.updateBlendshapes(estimate.blendshapes);
+          }
+          renderer.render(scene, camera);
+        });
+      }
+      start();
+    </script>
+    <style>
+      body {
+        margin: 0;
+      }
+      #container {
+        width: 100vw;
+        height: 100vh;
+        position: relative;
+        overflow: hidden;
+      }
+      #video-feed {
+        position: fixed;
+        bottom: 0;
+        left: 0;
+        width: 50vw;
+        z-index: 9999999;
+        transform: scaleX(-1);
+      }
+    </style>
+  </head>
+  <body>
+    <div id="container">
     </div>
-    <nav>
-        <ul>
-            <li><a href="#Inicio">Inicio</a></li>
-            <li><a href="#Menu">Menú</a></li>
-            <li><a href="#Ubicación">Ubicación</a></li>
-            <li><a href="#Contacto">Contacto</a></li>
-
-
-
-
-
-        </ul>
-    </nav>
-</header>
-
-
-
-    
-    <section id="inicio">
-        <h2>Bienvenido a nuestra cafetería</h2>
-        <p>¡Disfruta de nuestras deliciosas bebidas y aperitivos!</p>
-        <a href="#menu">Ver nuestro menú</a>
-    </section>
-    
-    <section id="menu">
-        <h2>Nuestro Menú</h2>
-        <div class="item">
-            <img src="cafe.jpg" alt="Café">
-            <h3>Café</h3>
-            <p>Descripción del café.</p>
-            <p>Precio: $X.XX</p>
-        </div>
-        <div class="item">
-            <img src="te.jpg" alt="Té">
-            <h3>Té</h3>
-            <p>Descripción del té.</p>
-            <p>Precio: $X.XX</p>
-        </div>
-        <!-- Agregar más elementos según el menú -->
-    </section>
-    
-    <section id="ubicacion">
-        <h2>Ubicación</h2>
-        <p>Encuéntranos en:</p>
-        <p>Dirección de la cafetería</p>
-        <p>Teléfono: xxx-xxx-xxxx</p>
-    </section>
-    
-    <section id="contacto">
-        <h2>Contacto</h2>
-        <p>Ponte en contacto con nosotros:</p>
-        <form>
-            <label for="nombre">Nombre:</label>
-            <input type="text" id="nombre" name="nombre" required>
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            <label for="mensaje">Mensaje:</label>
-            <textarea id="mensaje" name="mensaje" required></textarea>
-            <button type="submit">Enviar</button>
-        </form>
-    </section>
-
-    <footer>
-        <p>&copy; 2024 Cafetería deliciosamente suya</p>
-    </footer>
-</body>
+    <video id="video-feed">
+    </video>
+  </body>
 </html>
+
