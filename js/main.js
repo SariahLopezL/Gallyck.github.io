@@ -1,7 +1,7 @@
 (function ($) {
     "use strict";
     
-    // Dropdown on mouse hover
+    // Desplegar hacia abajo (lista menu)
     $(document).ready(function () {
         function toggleNavbarMethod() {
             if ($(window).width() > 992) {
@@ -19,7 +19,7 @@
     });
     
     
-    // Back to top button
+    // volver arriba
     $(window).scroll(function () {
         if ($(this).scrollTop() > 100) {
             $('.back-to-top').fadeIn('slow');
@@ -42,7 +42,7 @@
     });
 
 
-    // Testimonials carousel
+    // carousel testimonios
     $(".testimonial-carousel").owlCarousel({
         autoplay: true,
         smartSpeed: 1500,
