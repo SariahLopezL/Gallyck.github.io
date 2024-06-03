@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Cafetería con AR</title>
+    <link rel="stylesheet" href="styles.css">
+    <script src="https://aframe.io/releases/1.2.0/aframe.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/gh/jeromeetienne/AR.js/aframe/build/aframe-ar.min.js"></script>
+    <style>
+      body {
+        margin: 0;
+        overflow: hidden;
+      }
+      .card {
+        position: absolute;
+        top: 10px;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: white;
+        padding: 10px;
+        border-radius: 10px;
+        box-shadow: 0px 0px 10px rgba(0, 0, 0, 0.5);
+        width: 200px;
+        text-align: center;
+        z-index: 999;
+      }
+      .card img {
+        width: 100px;
+        height: 100px;
+      }
+      .navbar {
+        overflow: hidden;
+        background-color: #333;
+        position: fixed;
+        top: 0;
+        width: 100%;
+        z-index: 1000;
+      }
+      .navbar a {
+        float: left;
+        display: block;
+        color: #f2f2f2;
+        text-align: center;
+        padding: 14px 16px;
+        text-decoration: none;
+      }
+      .navbar a:hover {
+        background-color: #ddd;
+        color: black;
+      }
+      .content {
+        padding: 16px;
+        margin-top: 50px;
+      }
+    </style>
+</head>
+<body>
+    <!-- Barra de menú horizontal fija -->
+    <div class="navbar">
+        <a href="#">Inicio</a>
+        <a href="#nuestra-historia">Nuestra Historia</a>
+        <a href="#menu">Menú</a>
+        <a href="#contacto">Contacto</a>
+    </div>
+
+    <div class="card">
+      <h1>Tarjeta AR</h1>
+      <p>Escanea el QR para ver la realidad aumentada</p>
+      <img src="qr-code.png" alt="Código QR">
+    </div>
+
+    <div class="content">
+        <div class="container">
+            <div class="header">
+                <div class="header-text">
+                    <h1>Bienvenido a nuestra cafetería</h1>
+                    <p>Disfruta de un ambiente acogedor y rústico mientras disfrutas de nuestros deliciosos cafés y comidas.</p>
+                    <p class="hours">Horario: Lunes a Sábado, 7am - 7pm</p>
+                </div>
+                <img src="https://i.pinimg.com/564x/68/ba/83/68ba8378ebbd1e8311f95d71ac7efb03.jpg" alt="Imagen de la cafetería">
+            </div>
+            <br><br><br><br><br>
+
+            <!-- Parte central con "Nuestra Historia" -->
+            <div id="nuestra-historia" class="our-story-container">
+                <div class="our-story">
+                    <h2>Nuestra Historia</h2>
+                    <div class="story-content">
+                        <p>Bienvenidos a nuestra querida cafetería, un rincón acogedor donde cada taza de café cuenta una historia y cada bocado lleva consigo el sabor de la tradición y el cariño con el que preparamos cada platillo.<br>
+
+                        Desde nuestros humildes comienzos, hemos estado comprometidos con una sola misión: brindar a nuestra comunidad un refugio reconfortante donde puedan disfrutar de momentos especiales, ya sea solo, con amigos o en familia.<br>
+
+                        Nuestro viaje comenzó hace años, con el sueño de crear un espacio donde el aroma del café fresco se mezcla con la calidez de las sonrisas de nuestros clientes. Con dedicación y pasión, hemos cultivado un ambiente acogedor donde cada visita se convierte en una experiencia única.
+
+                        Desde las primeras horas de la mañana, nuestras puertas se abren para recibir a aquellos que buscan un despertar suave con un espresso robusto o un latte suave. A lo largo del día, nuestra selección de deliciosos bocadillos y platos reconfortantes acompaña cada conversación, cada reunión y cada momento de reflexión.
+
+                        Detrás de cada taza de café y cada plato servido, hay un equipo comprometido que trabaja con esmero y dedicación para asegurarse de que cada experiencia en nuestra cafetería sea inolvidable. Nos enorgullece ofrecer ingredientes frescos y de alta calidad en cada creación, y nos esforzamos por superar las expectativas de nuestros clientes en cada encuentro.
+
+                        A medida que miramos hacia el futuro, nuestra pasión por el buen café, la buena comida y la buena compañía sigue siendo el corazón de nuestra cafetería. Estamos emocionados de seguir creciendo y compartiendo nuestro amor por las cosas simples y hermosas de la vida con cada uno de ustedes.
+
+                        Gracias por ser parte de nuestra historia y por hacer de nuestra cafetería un lugar especial donde los recuerdos se crean y las amistades florecen. ¡Esperamos verte pronto en nuestra mesa!</p>
+                        <img src="https://i.pinimg.com/564x/96/0c/a0/960ca0dcfed51ce1638d096d7afc5548.jpg" alt="Historia de Café">
+                    </div>
+                </div>
+            </div>
+
+            <!-- Carrusel de bebidas -->
+            <div id="menu" class="menu">
+                <h1>Nuestro Menú</h1>
+                <h2>Bebidas</h2>
+                <div class="carousel-container">
+                    <button class="carousel-button left" onclick="scrollCarousel('left', 'drinks-carousel')">&#10094;</button>
+                    <div class="carousel" id="drinks-carousel">
+                        <div class="menu-item">
+                            <img src="https://i.pinimg.com/564x/ef/b2/2c/efb22cbcfab1410b503ddcdcede78589.jpg" alt="Café Expresso">
+                            <span>Café Expresso</span>
+                            <span class="price">$2.50</span>
+                        </div>
+                        <div class="menu-item">
+                            <img src="https://i.pinimg.com/564x/b8/1f/45/b81f45a0838e1c497f10ef9ce337ab52.jpg" alt="Cappuccino">
+                            <span>Cappuccino</span>
+                            <span class="price">$3.75</span>
+                        </div>
+                        <div class="menu-item">
+                            <img src="https://i.pinimg.com/564x/4a/ba/e3/4abae30b9141c2c84f891ed38376e676.jpg" alt="Té">
+                            <span>Té</span>
+                            <span class="price">$2.25</span>
+                        </div>
+                    </div>
+                    <button class="carousel-button right" onclick="scrollCarousel('right', 'drinks-carousel')">&#10095;</button>
+                </div>
+
+                <h2>Comidas</h2>
+                <div class="carousel-container-foods">
+                    <button class="carousel-button left" onclick="scrollCarousel('left', 'foods-carousel')">&#10094;</button>
+                    <div class="carousel-foods" id="foods-carousel">
+                        <div class="menu-item">
+                            <img src="https://i.pinimg.com/564x/96/67/54/966754b6cfbc23fe6c17a93660cf78b0.jpg" alt="Sándwich de Jamón y Queso">
+                            <span>Sándwich de Jamón y Queso</span>
+                            <span class="price">$5.50</span>
+                        </div>
+                        <div class="menu-item">
+                            <img src="https://i.pinimg.com/564x/7c/5e/3e/7c5e3ef05cb90db971086c66798c1594.jpg" alt="Croissant">
+                            <span>Croissant</span>
+                            <span class="price">$3.25</span>
+                        </div>
+                        <div class="menu-item">
+                            <img src="https://i.pinimg.com/564x/72/53/0b/72530bd02c51287f54562450f877293a.jpg" alt="Ensalada de Pollo">
+                            <span>Ensalada de Pollo</span>
+                            <span class="price">$7.75</span>
+                        </div>
+                    </div>
+                    <button class="carousel-button right" onclick="scrollCarousel('right', 'foods-carousel')">&#10095;</button>
+                </div>
+            </div>
+
+            <div id="contacto" class="contact-section">
+                <h2>Contáctanos</h2>
+                <div class="grid">
+                    <div class="contact-info">
+                        <h3>Información de Contacto</h3>
+                        <ul>
+                            
+                            <li>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#666]">
+                                  <path d="M20 10c0 6-8 12-8 12s-8-6-8-12a8 8 0 0 1 16 0Z"></path>
+                                  <circle cx="12" cy="10" r="3"></circle>
+                              </svg>
+                              <span>123 Calle Principal, Ciudad, País</span>
+                          </li>
+                          <li>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#666]">
+                                  <path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"></path>
+                              </svg>
+                              <span>+1 (123) 456-7890</span>
+                          </li>
+                          <li>
+                              <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="w-6 h-6 text-[#666]">
+                                  <rect width="20" height="16" x="2" y="4" rx="2"></rect>
+                                  <path d="m22 7-8.97 5.7a1.94 1.94 0 0 1-2.06 0L2 7"></path>
+                              </svg>
+                              <span>info@cafeteria.com</span>
+                          </li>
+                      </ul>
+                  </div>
+                  <div class="contact-form">
+                      <h3>Formulario de Contacto</h3>
+                      <form>
+                          <input type="text" placeholder="Nombre" required>
+                          <input type="email" placeholder="Correo Electrónico" required>
+                          <textarea placeholder="Mensaje" rows="5" required></textarea>
+                          <button type="submit">Enviar</button>
+                      </form>
+                  </div>
+              </div>
+          </div>
+      </div>
+
+      <footer>
+          <p>© 2023 Cafetería. Todos los derechos reservados.</p>
+          <div>
+              <a href="#">Facebook</a>
+              <a href="#">Instagram</a>
+              <a href="#">Twitter</a>
+          </div>
+      </footer>
+  </div>
+
+  <div id="productDetailsModal" class="modal">
+      <div class="modal-content">
+          <span class="close">&times;</span>
+          <h2 id="productName"></h2>
+          <img id="productImage" src="" alt="Imagen del producto"> <!-- Agrega la imagen del producto -->
+          <p id="productDescription"></p>
+          <p id="productPrice"></p>
+          <!-- Agrega más detalles del producto aquí si es necesario -->
+      </div>
+  </div>
+
+  <!-- Código AR -->
+  <a-scene embedded arjs>
+      <a-marker preset="hiro">
+          <a-box position="0 0.5 0" material="color: yellow;"></a-box>
+      </a-marker>
+      <a-entity camera></a-entity>
+  </a-scene>
+
+  <script>
+      function scrollCarousel(direction, carouselId) {
+          const carousel = document.getElementById(carouselId);
+          if (direction === 'left') {
+              carousel.scrollBy({ left: -300, behavior: 'smooth' });
+          } else {
+              carousel.scrollBy({ left: 300, behavior: 'smooth' });
+          }
+      }
+
+      // Modal handling
+      var modal = document.getElementById("productDetailsModal");
+      var span = document.getElementsByClassName("close")[0];
+
+      span.onclick = function() {
+          modal.style.display = "none";
+      }
+
+      window.onclick = function(event) {
+          if (event.target == modal) {
+              modal.style.display = "none";
+          }
+      }
+  </script>
+</body>
+</html>
