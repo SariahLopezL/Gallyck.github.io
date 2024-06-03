@@ -38,30 +38,19 @@
 
     <a-scene embedded arjs>
       <a-marker preset="hiro">
-        <!-- Añadir un plano con video -->
-        <a-plane id="video-plane" position="10 -10 0" rotation="-90 0 0" width="4" height="2" class="clickable" material="shader: flat; src: #my-video;"></a-plane>
-
         <!-- Añadir una imagen plana a la escena con interacción -->
-        <a-plane id="interactive-plane" src="TarjetaCafeteríaAR.jpg" position="0 0.5 0" rotation="-90 0 0" width="1" height="1" class="clickable"></a-plane>
+        <a-plane id="interactive-plane" src="TarjetaCafeteríaAR.jpg" position="0 0.5 0" rotation="-90 0 0" width="2" height="1" class="clickable"></a-plane>
       </a-marker>
       <a-entity camera>
         <a-cursor></a-cursor>
       </a-entity>
     </a-scene>
 
-    <!-- Elemento de video oculto -->
-    <video id="my-video" autoplay loop crossorigin="anonymous" style="display: none;">
-      <!-- Cambia la URL a tu enlace de video en Internet -->
-      <source src="https://www.youtube.com/watch?v=df3JeXVWYWA" type="video/mp4">
-      <!-- Puedes agregar más formatos de video aquí para mejorar la compatibilidad -->
-      <!-- <source src="otro-formato-video.webm" type="video/webm"> -->
-    </video>
-
     <script>
       AFRAME.registerComponent('click-handler', {
         init: function () {
           this.el.addEventListener('click', function () {
-            window.location.href = 'https://www.youtube.com/shorts/dLjnbDej2wQ'; // Redirigir a una página web
+            window.location.href = 'https://www.youtube.com/watch?v=df3JeXVWYWA'; // Redirigir a una página web
           });
         }
       });
