@@ -38,17 +38,25 @@
     <a-scene embedded arjs>
       <a-marker preset="hiro">
         <!-- Añadir una imagen plana a la escena con interacción -->
-        <a-plane src="TarjetaCafeteríaAR.jpg" position="0 0.5 0" rotation="-90 0 0" width="1" height="1" id="interactive-plane"></a-plane>
+        <a-plane id="interactive-plane" src="TarjetaCafeteríaAR.jpg" position="0 0.5 0" rotation="-90 0 0" width="1" height="1" class="clickable"></a-plane>
       </a-marker>
-      <a-entity camera></a-entity>
+      <a-entity camera>
+        <a-cursor></a-cursor>
+      </a-entity>
     </a-scene>
 
     <script>
+      AFRAME.registerComponent('click-handler', {
+        init: function () {
+          this.el.addEventListener('click', function () {
+            window.location.href = 'https://sariahlopezl.github.io/Gallyck.github.io/'; // Redirigir a una página web
+          });
+        }
+      });
+
       document.addEventListener('DOMContentLoaded', function () {
         const plane = document.querySelector('#interactive-plane');
-        plane.addEventListener('click', function () {
-          window.location.href = 'https://sariahlopezl.github.io/Gallyck.github.io/'; // Redirigir a una página web
-        });
+        plane.setAttribute('click-handler', '');
       });
     </script>
   </body>
